@@ -216,3 +216,5 @@ pub(crate) use impl_dyn_cast;
 pub mod core;
 pub mod gui;
 pub mod histogram;
+
+struct A(&'static A);

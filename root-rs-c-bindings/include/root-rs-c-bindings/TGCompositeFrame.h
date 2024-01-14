@@ -6,5 +6,5 @@ RRS_CLASS_PARENT(TGCompositeFrame, TGFrame);
 #endif
 
 #ifdef ROOT_RS_INCLUDE_FUNCTIONS
-void RSS_METHOD(TGCompositeFrame, foo)();
+void RRS_METHOD(TGCompositeFrame, foo)();
 #endif

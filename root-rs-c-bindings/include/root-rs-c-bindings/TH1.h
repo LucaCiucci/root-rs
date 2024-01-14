@@ -9,5 +9,6 @@ RRS_CLASS_PARENT(TH1, TAttMarker);
 #endif
 
 #ifdef ROOT_RS_INCLUDE_FUNCTIONS
-//void RSS_METHOD(TH1, some_method)(some_args);
+//RRS_STRUCT(TH1) RRS_METHOD(TH1, clone)(RRS_STRUCT(TH1) RRS_CONST_REF self);
+//RRS_STRUCT(TH1) RRS_METHOD(TH1, clone_with_name)(RRS_STRUCT(TH1) RRS_CONST_REF self, const char* RRS_CONST_REF new_name);
 #endif

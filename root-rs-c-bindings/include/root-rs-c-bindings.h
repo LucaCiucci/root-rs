@@ -9,9 +9,9 @@
 #define RRS_VALUE
 
 #ifdef __cplusplus
-    #define RRS_STRUCT
+    #define RRS_STRUCT(S) S*
 #else
-    #define RRS_STRUCT struct
+    #define RRS_STRUCT(S) struct S*
 #endif
 
 #ifdef __cplusplus

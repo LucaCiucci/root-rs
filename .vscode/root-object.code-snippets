@@ -28,7 +28,7 @@
 			"#endif",
 			"",
 			"#ifdef ROOT_RS_INCLUDE_FUNCTIONS",
-			"//void RSS_METHOD($1, some_method)(some_args);",
+			"//void RRS_METHOD($1, some_method)(some_args);",
 			"#endif",
 		]
 	},
