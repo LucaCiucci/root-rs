@@ -17,8 +17,8 @@
 #ifdef RRS_DELETE_FN_DEF
     #undef RRS_DELETE_FN_DEF
 #endif
-#ifdef RRS_METHOD_NAME
-    #undef RRS_METHOD_NAME
+#ifdef RSS_METHOD
+    #undef RSS_METHOD
 #endif
 #ifdef RRS_CLASS
     #undef RRS_CLASS
@@ -35,7 +35,7 @@
 #define RRS_DELETE_FN_DECL(TYPE) void root_rs_ ## TYPE ## __delete(RRS_STRUCT TYPE* RRS_VALUE obj)
 #define RRS_DELETE_FN_DEF(TYPE) RRS_DELETE_FN_DECL(TYPE) { delete obj; }
 
-#define RRS_METHOD_NAME(CLASS, METHOD) root_rs_ ## CLASS ## __ ## METHOD
+#define RSS_METHOD(CLASS, METHOD) root_rs_ ## CLASS ## __ ## METHOD
 
 #ifdef ROOT_RS_INCLUDE_TYPES
     #define RRS_CLASS(CLASS) \

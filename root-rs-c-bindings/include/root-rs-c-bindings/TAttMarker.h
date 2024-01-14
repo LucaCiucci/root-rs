@@ -5,5 +5,5 @@ RRS_CLASS(TAttMarker);
 #endif
 
 #ifdef ROOT_RS_INCLUDE_FUNCTIONS
-//void RRS_METHOD_NAME(TAttMarker, some_method)(some_args);
+//void RSS_METHOD(TAttMarker, some_method)(some_args);
 #endif

@@ -9,5 +9,5 @@ RRS_CLASS_PARENT(TH1, TAttMarker);
 #endif
 
 #ifdef ROOT_RS_INCLUDE_FUNCTIONS
-//void RRS_METHOD_NAME(TH1, some_method)(some_args);
+//void RSS_METHOD(TH1, some_method)(some_args);
 #endif

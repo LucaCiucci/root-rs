@@ -7,5 +7,5 @@ RRS_CLASS_PARENT(TRootCanvas, TCanvasImp);
 #endif
 
 #ifdef ROOT_RS_INCLUDE_FUNCTIONS
-//void RRS_METHOD_NAME(TRootCanvas, some_method)(some_args);
+//void RSS_METHOD(TRootCanvas, some_method)(some_args);
 #endif

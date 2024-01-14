@@ -5,17 +5,17 @@
 #undef ROOT_RS_INCLUDE_INCLUDES
 
 extern "C" {
-    RRS_STRUCT TApplication* RRS_METHOD_NAME(TApplication, new)(const char* RRS_CONST_REF name, int argc, const char* const* RRS_CONST_REF argv) {
+    RRS_STRUCT TApplication* RSS_METHOD(TApplication, new)(const char* RRS_CONST_REF name, int argc, const char* const* RRS_CONST_REF argv) {
         int* argc_ = (int*)&argc;
         char** argv_ = (char**)argv;
         return new TApplication(name, argc_, argv_);
     }
 
-    void RRS_METHOD_NAME(TApplication, run)(RRS_STRUCT TApplication* RRS_MUT_REF app, bool retrn) {
+    void RSS_METHOD(TApplication, run)(RRS_STRUCT TApplication* RRS_MUT_REF app, bool retrn) {
         app->Run(retrn);
     }
 
-    RRS_STRUCT TApplication* RRS_METHOD_NAME(gApplication, get)() {
+    RRS_STRUCT TApplication* RSS_METHOD(gApplication, get)() {
         return gApplication;
     }
 }
