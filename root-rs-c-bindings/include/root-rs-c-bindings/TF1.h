@@ -1,0 +1,13 @@
+RRS_CLASS(TF1);
+RRS_CLASS_PARENT(TF1, TNamed);
+RRS_CLASS_PARENT(TF1, TAttLine);
+RRS_CLASS_PARENT(TF1, TAttFill);
+RRS_CLASS_PARENT(TF1, TAttMarker);
+
+#ifdef ROOT_RS_INCLUDE_INCLUDES
+#include <TF1.h>
+#endif
+
+#ifdef ROOT_RS_INCLUDE_FUNCTIONS
+//void RRS_METHOD(TF1, some_method)(some_args);
+#endif

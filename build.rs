@@ -4,6 +4,10 @@ use std::path::PathBuf;
 fn main() {
     // Builds the project in the directory located in `libfoo`, installing it
     // into $OUT_DIR
+    //let mut cfg = cmake::Config::new("root-rs-c-bindings");
+    ////panic!("cfg: {:?}", cfg.get_profile());
+    //let cfg = cfg.very_verbose(true);
+    //let dst = cfg.build();
     let dst = cmake::build("root-rs-c-bindings");
 
     println!("cargo:rustc-link-search=native={}", dst.display());

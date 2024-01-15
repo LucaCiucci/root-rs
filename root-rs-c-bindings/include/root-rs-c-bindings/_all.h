@@ -1,4 +1,10 @@
 
+#ifdef RSS_REF
+    #undef RSS_REF
+#endif
+#ifdef RSS_VALUE
+    #undef RSS_VALUE
+#endif
 #ifdef RRS_UPCAST_FN_DECL
     #undef RRS_UPCAST_FN_DECL
 #endif
@@ -27,12 +33,15 @@
     #undef RRS_CLASS_PARENT
 #endif
 
-#define RRS_UPCAST_FN_DECL(CLASS, PARENT) RRS_STRUCT(PARENT) root_rs_ ## CLASS ## __as_ ## PARENT(RRS_STRUCT(CLASS) cl)
-#define RRS_DOWNCAST_FN_DECL(CLASS, PARENT) RRS_STRUCT(CLASS) root_rs_ ## CLASS ## __from_ ## PARENT(RRS_STRUCT(PARENT) parent)
-#define RRS_UPCAST_FN_DEF(CLASS, PARENT) RRS_UPCAST_FN_DECL(CLASS, PARENT) { return cl; }
-#define RRS_DOWNCAST_FN_DEF(CLASS, PARENT) RRS_DOWNCAST_FN_DECL(CLASS, PARENT) { return dynamic_cast<CLASS*>(parent); }
+#define RRS_REF
+#define RRS_VALUE
 
-#define RRS_DELETE_FN_DECL(TYPE) void root_rs_ ## TYPE ## __delete(RRS_STRUCT(TYPE) RRS_VALUE obj)
+#define RRS_UPCAST_FN_DECL(CLASS, PARENT) const RRS_REF RRS_STRUCT(PARENT) root_rs_ ## CLASS ## __as_ ## PARENT(const RRS_REF RRS_STRUCT(CLASS) cl)
+#define RRS_DOWNCAST_FN_DECL(CLASS, PARENT) const RRS_REF RRS_STRUCT(CLASS) root_rs_ ## CLASS ## __from_ ## PARENT(const RRS_REF RRS_STRUCT(PARENT) parent)
+#define RRS_UPCAST_FN_DEF(CLASS, PARENT) RRS_UPCAST_FN_DECL(CLASS, PARENT) { return cl; }
+#define RRS_DOWNCAST_FN_DEF(CLASS, PARENT) RRS_DOWNCAST_FN_DECL(CLASS, PARENT) { return dynamic_cast<const CLASS*>(parent); }
+
+#define RRS_DELETE_FN_DECL(TYPE) void root_rs_ ## TYPE ## __delete(const RRS_VALUE RRS_STRUCT(TYPE) obj)
 #define RRS_DELETE_FN_DEF(TYPE) RRS_DELETE_FN_DECL(TYPE) { delete obj; }
 
 #define RRS_METHOD(CLASS, METHOD) root_rs_ ## CLASS ## __ ## METHOD
@@ -79,3 +88,7 @@
 #include "./TRootCanvas.h"
 #include "./TNamed.h"
 #include "./TH1.h"
+#include "./TF1.h"
+#include "./TH1F.h"
+#include "./TArray.h"
+#include "./TArrayF.h"

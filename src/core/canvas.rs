@@ -1,39 +1,36 @@
-use anyhow::{Result, anyhow};
-
-use super::*;
-use std::{ffi::*, ops::Deref};
+use crate::impl_utils::*;
 
 root_object! {
     TCanvas
 }
 
 impl TCanvas {
-    pub fn new_build(build: bool) -> Self {
-        let ptr = unsafe {
-            ffi::root_rs_TCanvas__new_build(build)
-        };
-        TCanvas::from_ptr(ptr).unwrap()
+    pub fn new_build(build: bool) -> Ptr<Self> {
+        unsafe {
+            let ptr = ffi::root_rs_TCanvas__new_build(build);
+            Ptr::new(ptr).expect("TCanvas::new_build failed")
+        }
     }
 
     pub fn new_name_title_form(
         name: &str,
         title: &str,
         form: TCanvasForm,
-    ) -> Self {
+    ) -> Ptr<Self> {
         let name = CString::new(name).unwrap();
         let name: *const c_char = name.as_ptr() as *const _;
 
         let title = CString::new(title).unwrap();
         let title: *const c_char = title.as_ptr() as *const _;
 
-        let ptr = unsafe {
-            ffi::root_rs_TCanvas__new_name_title_form(
+        unsafe {
+            let ptr = ffi::root_rs_TCanvas__new_name_title_form(
                 name,
                 title,
                 form.number(),
-            )
-        };
-        TCanvas::from_ptr(ptr).unwrap()
+            );
+            Ptr::new(ptr).expect("TCanvas::new_name_title_form failed")
+        }
     }
 
     pub fn new_name_title_width_height(
@@ -41,27 +38,33 @@ impl TCanvas {
         title: &str,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Ptr<Self> {
         let name = CString::new(name).unwrap();
         let name: *const c_char = name.as_ptr() as *const _;
 
         let title = CString::new(title).unwrap();
         let title: *const c_char = title.as_ptr() as *const _;
 
-        let ptr = unsafe {
-            ffi::root_rs_TCanvas__new_name_title_width_height(
+        unsafe {
+            let ptr = ffi::root_rs_TCanvas__new_name_title_width_height(
                 name,
                 title,
                 width,
                 height,
-            )
-        };
-        TCanvas::from_ptr(ptr).unwrap()
+            );
+            Ptr::new(ptr).expect("TCanvas::new_name_title_width_height failed")
+        }
     }
 
-    pub fn get_canvas_impl<'s>(&'s mut self) -> Option<RootRef<'s, TCanvasImp>> {
+    pub fn get_canvas_impl(&self) -> Option<&TCanvasImp> {
         unsafe {
-            RootRef::new(ffi::root_rs_TCanvas__GetCanvasImp(self.0))
+            TCanvasImp::reference_from_ffi(ffi::root_rs_TCanvas__GetCanvasImp(self.ffi_ptr() as *mut _))
+        }
+    }
+
+    pub fn get_canvas_impl_mut(&mut self) -> Option<&mut TCanvasImp> {
+        unsafe {
+            TCanvasImp::mut_reference_from_ffi(ffi::root_rs_TCanvas__GetCanvasImp(self.ffi_ptr_mut()))
         }
     }
 
@@ -78,12 +81,11 @@ impl TCanvas {
     /// ```
     pub fn terminate_app_on_close(&mut self) -> Result<()> {
         let app = TApplication::gApplication().ok_or(anyhow!("No gApplication"))?;
-        let app = app.deref();
 
         self
-            .get_canvas_impl().ok_or(anyhow!("No canvas impl"))?
-            .dyn_into_ref::<TRootCanvas>().ok_or(anyhow!("No TRootCanvas"))?
-            .as_TQObject()
+            .get_canvas_impl_mut().ok_or(anyhow!("No canvas impl"))?
+            .dyn_as_mut::<TRootCanvas>().ok_or(anyhow!("No TRootCanvas"))?
+            .as_TQObject_mut()
             .connect("CloseWindow()", "TApplication", app, "Terminate()").map_err(|_| anyhow!("connect failed"))?;
         Ok(())
     }

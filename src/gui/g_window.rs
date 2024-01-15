@@ -1,5 +1,5 @@
-use super::*;
+use crate::impl_utils::*;
 
 root_object!(
-    TGWindow: TGObject
+    TGWindow(TGObject)
 );

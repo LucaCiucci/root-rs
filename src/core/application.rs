@@ -1,20 +1,16 @@
-
-use crate::ffi_method;
-
-use super::*;
-use std::ffi::*;
+use crate::impl_utils::*;
 
 root_object! {
-    TApplication : TObject
+    TApplication(TObject)
 }
 
 impl TApplication {
-    pub fn new(class_name: &str) -> Self {
+    pub fn new(class_name: &str) -> Ptr<Self> {
         let args = std::env::args().collect::<Vec<_>>();
         Self::new_with_args(class_name, &args)
     }
 
-    pub fn new_with_args<Args>(class_name: &str, args: Args) -> Self
+    pub fn new_with_args<Args>(class_name: &str, args: Args) -> Ptr<Self>
     where
         Args: IntoIterator,
         Args::Item: AsRef<str>,
@@ -28,25 +24,21 @@ impl TApplication {
             .collect::<Vec<_>>();
         let args: Vec<*const c_char> = args.iter().map(|s| s.as_ptr() as *const _).collect();
 
-        let ptr = unsafe {
-            ffi_method!(TApplication::new)(
+        unsafe {
+            let ptr = ffi_method!(TApplication::new)(
                 class_name,
                 args.len() as _,
                 args.as_ptr() as *const _,
-            )
-        };
-
-        TApplication(ptr)
+            );
+            Ptr::new(ptr).expect("TApplication::new failed")
+        }
     }
 
-    pub fn gApplication() -> Option<RootRef<'static, TApplication>> {
+    // TODO maybe unsafe
+    pub fn gApplication() -> Option<&'static mut TApplication> {
         unsafe {
             let ptr = ffi::root_rs_gApplication__get();
-            if ptr.is_null() {
-                None
-            } else {
-                Some(RootRef::new(ptr).unwrap())
-            }
+            TApplication::mut_reference_from_ffi(ptr)
         }
     }
 
@@ -54,7 +46,7 @@ impl TApplication {
     ///
     /// This is equivalent to calling `run(false)`, code
     /// after this function will be executed.
-    pub fn run_return(&self) {
+    pub fn run_return(&mut self) {
         unsafe {
             self.run(true);
         }
@@ -68,7 +60,7 @@ impl TApplication {
     /// # Remarks
     /// This function is unsafe because it will never return, RAII
     /// might not be executed properly.
-    pub unsafe fn run_no_return(&self) -> ! {
+    pub unsafe fn run_no_return(&mut self) -> ! { // TODO maybe unsafe is not necessary, see std::mem::forget for explanation
         unsafe {
             self.run(false);
         }
@@ -85,9 +77,9 @@ impl TApplication {
     ///
     /// [run_return]:TApplication::run_return
     /// [run_no_return]:TApplication::run_no_return
-    pub unsafe fn run(&self, ret: bool) {
+    pub unsafe fn run(&mut self, ret: bool) { // TODO maybe unsafe is not necessary, see std::mem::forget for explanation
         unsafe {
-            ffi::root_rs_TApplication__run(self.0, ret);
+            ffi::root_rs_TApplication__run(self.ffi_ptr_mut(), ret);
         }
     }
 }

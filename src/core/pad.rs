@@ -1,11 +1,9 @@
-use crate::DynCast;
-
-use super::*;
+use crate::impl_utils::*;
 
 root_object! {
-    TVirtualPad: TObject, TAttLine, TAttFill, TAttPad, TQObject,
+    TVirtualPad(ref TObject, TAttLine, TAttFill, TAttPad, TQObject)
 }
 
 root_object! {
-    TPad : TVirtualPad,
+    TPad(TVirtualPad)
 }

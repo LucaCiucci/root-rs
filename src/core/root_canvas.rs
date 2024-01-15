@@ -1,7 +1,7 @@
-use super::*;
+use crate::impl_utils::*;
 
 root_object! {
-    TRootCanvas: TGMainFrame, TCanvasImp
-    ref
+    TRootCanvas(TGMainFrame, ref TCanvasImp),
+    ref shortcuts:
     TQObject: TGMainFrame => TGCompositeFrame => TGFrame
 }

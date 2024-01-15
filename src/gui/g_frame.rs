@@ -1,5 +1,5 @@
-use super::*;
+use crate::impl_utils::*;
 
 root_object!(
-    TGFrame: TGWindow, TQObject
+    TGFrame(TGWindow, ref TQObject)
 );

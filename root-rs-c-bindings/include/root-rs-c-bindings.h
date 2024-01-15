@@ -2,11 +2,7 @@
 
 #include <stdbool.h>
 
-#include <root-rs-c-bindings/info.h>
-
-#define RRS_MUT_REF
-#define RRS_CONST_REF
-#define RRS_VALUE
+#include <root-rs-c-bindings/config.h>
 
 #ifdef __cplusplus
     #define RRS_STRUCT(S) S*

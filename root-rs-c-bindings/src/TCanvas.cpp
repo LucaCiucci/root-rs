@@ -21,15 +21,15 @@ extern "C" {
         return new TCanvas(build);
     }
 
-    RRS_STRUCT(TCanvas) root_rs_TCanvas__new_name_title_form(const char* RRS_CONST_REF name, const char* RRS_CONST_REF title, int form) {
+    RRS_STRUCT(TCanvas) root_rs_TCanvas__new_name_title_form(const char* RRS_REF name, const char* RRS_REF title, int form) {
         return new TCanvas(name, title, form);
     }
 
-    RRS_STRUCT(TCanvas) root_rs_TCanvas__new_name_title_width_height(const char* RRS_CONST_REF name, const char* RRS_CONST_REF title, int width, int height) {
+    RRS_STRUCT(TCanvas) root_rs_TCanvas__new_name_title_width_height(const char* RRS_REF name, const char* RRS_REF title, int width, int height) {
         return new TCanvas(name, title, width, height);
     }
 
-    RRS_STRUCT(TCanvasImp) root_rs_TCanvas__GetCanvasImp(RRS_STRUCT(TCanvas) RRS_MUT_REF canvas) {
+    RRS_STRUCT(TCanvasImp) root_rs_TCanvas__GetCanvasImp(RRS_STRUCT(TCanvas) RRS_REF canvas) {
         return canvas->GetCanvasImp();
     }
 }
