@@ -15,8 +15,7 @@ impl TApplication {
         Args: IntoIterator,
         Args::Item: AsRef<str>,
     {
-        let class_name = CString::new(class_name).unwrap();
-        let class_name: *const c_char = class_name.as_ptr() as *const _;
+        to_c_str!(class_name);
 
         let args = args
             .into_iter()

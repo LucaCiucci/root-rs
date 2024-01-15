@@ -3,21 +3,21 @@ use std::ops::RangeInclusive;
 use crate::impl_utils::*;
 
 root_object! {
-    TH1F(ref TH1, TArrayF),
+    TH1D(TH1, TArrayD),
     ref shortcuts:
     TNamed: TH1,
     TAttLine: TH1,
     TAttFill: TH1,
     TAttMarker: TH1,
     TObject: TH1 => TNamed,
-    TArray: TArrayF,
+    TArray: TArrayD,
 }
 
-impl TH1F {
+impl TH1D {
     pub fn new_range(name: &str, title: &str, n_bins: usize, range: RangeInclusive<f64>) -> Ptr<Self> {
         to_c_str!(name, title);
         unsafe {
-            let ptr = ffi_method!(TH1F::new_range)(
+            let ptr = ffi_method!(TH1D::new_range)(
                 name,
                 title,
                 n_bins as i32,

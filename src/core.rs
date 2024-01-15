@@ -12,3 +12,4 @@ mod root_canvas; pub use root_canvas::*;
 mod named; pub use named::*;
 mod array; pub use array::*;
 mod arrayf; pub use arrayf::*;
+mod arrayd; pub use arrayd::*;

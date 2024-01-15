@@ -33,8 +33,7 @@ impl TH1 {
 
     /// `self <- self + f1 * c1`
     pub fn add_function(&mut self, f1: &mut TF1, c1: f64, option: impl Into<AddF2HOption>) -> Result<()> {
-        let option = CString::new(option.into().as_str())?;
-        let option = option.as_ptr();
+        to_c_str!(option = option.into().as_str());
         unsafe {
             ffi_method!(TH1::add_function)(
                 self.ffi_ptr_mut(),
@@ -67,8 +66,7 @@ impl TH1 {
     }
 
     pub fn anderson_darling_test(&self, h2: &TH1, option: impl Into<AndersonDarlingTestOption>) -> f64 {
-        let option = CString::new(option.into().as_str()).unwrap();
-        let option = option.as_ptr();
+        to_c_str!(option = option.into().as_str());
         unsafe {
             ffi_method!(TH1::anderson_darling_test)(
                 self.ffi_ptr(),

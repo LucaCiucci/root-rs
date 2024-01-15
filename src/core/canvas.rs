@@ -17,12 +17,7 @@ impl TCanvas {
         title: &str,
         form: TCanvasForm,
     ) -> Ptr<Self> {
-        let name = CString::new(name).unwrap();
-        let name: *const c_char = name.as_ptr() as *const _;
-
-        let title = CString::new(title).unwrap();
-        let title: *const c_char = title.as_ptr() as *const _;
-
+        to_c_str!(name, title);
         unsafe {
             let ptr = ffi::root_rs_TCanvas__new_name_title_form(
                 name,
@@ -39,12 +34,7 @@ impl TCanvas {
         width: i32,
         height: i32,
     ) -> Ptr<Self> {
-        let name = CString::new(name).unwrap();
-        let name: *const c_char = name.as_ptr() as *const _;
-
-        let title = CString::new(title).unwrap();
-        let title: *const c_char = title.as_ptr() as *const _;
-
+        to_c_str!(name, title);
         unsafe {
             let ptr = ffi::root_rs_TCanvas__new_name_title_width_height(
                 name,

@@ -8,8 +8,7 @@ root_object!(
 
 impl TObject {
     pub fn draw_with_option(&mut self, option: &str) {
-        let option = CString::new(option).unwrap();
-        let option = option.as_ptr();
+        to_c_str!(option);
         unsafe {
             ffi_method!(TObject::draw)(self.ffi_ptr_mut(), option);
         }

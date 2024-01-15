@@ -16,3 +16,17 @@ macro_rules! ffi_method {
         }
     };
 }
+
+#[macro_export]
+macro_rules! to_c_str {
+    ($name:ident = $e:expr) => {
+        let tmp = CString::new($e).unwrap();
+        let $name = tmp.as_ptr();
+    };
+    ($name:ident) => {
+        $crate::to_c_str!($name = $name);
+    };
+    ($($name:ident $(= $e:expr)?),*) => {
+        $($crate::to_c_str!( $name $(= $e)? );)*
+    };
+}
