@@ -31,7 +31,9 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libs.txt DESTINATION lib)
 
 message("CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 
-find_package(ROOT 6.30 REQUIRED)
+# TODO ADJUST THIS VALUE!!!!! I use 6.30, but I wrote 6.20 to make it work for others.
+# I chose 6.20 because it is from 2020 and its just sounded like a good number
+find_package(ROOT 6.20 REQUIRED)
 message("ROOT_FOUND: ${ROOT_FOUND}")
 target_include_directories(root-rs-c-bindings PRIVATE ${ROOT_INCLUDE_DIRS})
 message(${ROOT_INCLUDE_DIRS})
