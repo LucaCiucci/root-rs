@@ -28,7 +28,7 @@ impl TCanvas {
         }
     }
 
-    pub fn new_name_title_width_height(
+    pub fn new_with_size(
         name: &str,
         title: &str,
         width: i32,

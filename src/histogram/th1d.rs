@@ -3,7 +3,7 @@ use std::ops::RangeInclusive;
 use crate::impl_utils::*;
 
 root_object! {
-    TH1D(TH1, TArrayD),
+    TH1D(ref TH1, TArrayD),
     ref shortcuts:
     TNamed: TH1,
     TAttLine: TH1,

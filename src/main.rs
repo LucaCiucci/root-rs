@@ -12,7 +12,7 @@ fn main() -> Result<()> {
 
     let mut app = TApplication::new("app");
 
-    let mut canvas = TCanvas::new_name_title_width_height("a", "b", 400, 300);
+    let mut canvas = TCanvas::new_with_size("a", "b", 400, 300);
     canvas.terminate_app_on_close()?;
 
     //let app = root_rs::core::TApplication::gApplication().ok_or(anyhow!("No gApplication"))?;

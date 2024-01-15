@@ -6,6 +6,8 @@ fn _tmp() {
     let _ = ffi::RRS_ROOT_DOC_VERSION;
 }
 
+pub use anyhow;
+
 pub trait RootObject {
     type FFIType;
 
