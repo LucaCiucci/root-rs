@@ -1,16 +1,23 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-
 project(root-rs-c-bindings LANGUAGES CXX)
+
+# options
+option(ROOT_RS_SYSTEM_ROOT "Use the system root installation instead of downloading a prebuilt version" OFF)
+#message(FATAL_ERROR "ROOT_RS_SYSTEM_ROOT ${ROOT_RS_SYSTEM_ROOT}")
+#if(ROOT_RS_SYSTEM_ROOT)
+#    message(FATAL_ERROR "SYSTEM ROOT")
+#else()
+#    message(FATAL_ERROR "PREBUILT ROOT")
+#endif()
+
+set(ROOR_RS_ROOT_DOWNLOAD_VERSION "6.30.02")
+include(cmake/root_dep.cmake)
 
 add_library(
     root-rs-c-bindings
     include/root-rs-c-bindings.h
-    #src/TObject.cpp
-    #src/TApplication.cpp
-    #src/TPad.cpp
-    #src/TCanvas.cpp
 )
 
 # add any file in the src directory
@@ -33,13 +40,14 @@ message("CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 
 # TODO ADJUST THIS VALUE!!!!! I use 6.30, but I wrote 6.20 to make it work for others.
 # I chose 6.20 because it is from 2020 and its just sounded like a good number
-find_package(ROOT 6.20 REQUIRED)
-message("ROOT_FOUND: ${ROOT_FOUND}")
+
+message(STATUS "ROOT_FOUND: ${ROOT_FOUND}")
+message(STATUS "root version: ${ROOT_VERSION}")
 target_include_directories(root-rs-c-bindings PRIVATE ${ROOT_INCLUDE_DIRS})
 message(${ROOT_INCLUDE_DIRS})
 foreach(lib IN LISTS ROOT_LIBRARIES)
-	message("lib: ${lib}")
-	target_link_libraries(root-rs-c-bindings PRIVATE ${lib})
+    message("lib: ${lib}")
+    target_link_libraries(root-rs-c-bindings PRIVATE ${lib})
 endforeach()
 
 # list all linked libraries

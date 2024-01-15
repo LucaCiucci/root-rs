@@ -8,7 +8,20 @@ fn main() {
     ////panic!("cfg: {:?}", cfg.get_profile());
     //let cfg = cfg.very_verbose(true);
     //let dst = cfg.build();
-    let dst = cmake::build("root-rs-c-bindings");
+    //let dst = cmake::build("root-rs-c-bindings");
+
+    let mut cfg = cmake::Config::new("root-rs-c-bindings");
+
+    // if "system-root" feature is enabled, set ROOT_RS_SYSTEM_ROOT to ON, otherwise OFF
+    //panic!("system-root is enabled: {}", cfg!(feature = "system-root"));
+    if cfg!(feature = "system-root") {
+        //panic!("system-root feature is enabled");
+        cfg.define("ROOT_RS_SYSTEM_ROOT", "ON");
+    } else {
+        cfg.define("ROOT_RS_SYSTEM_ROOT", "OFF");
+    }
+
+    let dst = cfg.build();
 
     println!("cargo:rustc-link-search=native={}", dst.display());
     println!("cargo:rustc-link-lib=static=lib/root-rs-c-bindings");

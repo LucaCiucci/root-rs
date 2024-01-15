@@ -13,3 +13,6 @@ paste = "1.0.14"
 bindgen = "0.69.1"
 cmake = "0.1.50"
 regex = "1.10.2"
+
+[features]
+system-root = []
