@@ -15,10 +15,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install dependencies
+    #- name: Install dependencies
+    #  run: |
+    #    sudo apt update
+    #    sudo apt install nlohmann-json3-dev
+    - name: install nlohmann json from git release
       run: |
-        sudo apt update
-        sudo apt install nlohmann-json3-dev
+        cd ~
+        wget https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.tar.gz
+        tar -xzf v3.11.3.tar.gz
+        cd json-3.11.3
+        mkdir build
+        cd build
+        cmake ..
+        make
+        sudo make install
     - name: download-root
       run: |
         cd ~
