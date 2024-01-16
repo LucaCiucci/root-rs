@@ -1,0 +1,36 @@
+name: Ubuntu
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: download-root
+      run: |
+        wget https://root.cern/download/root_v6.30.02.Linux-ubuntu23.04-x86_64-gcc12.3.tar.gz
+        tar -xzf root_v6.22.06.Linux-ubuntu20-x86_64-gcc9.3.tar.gz
+        source root/bin/thisroot.sh
+    - name: Configure CMake for C bindings
+      working-directory: ${{github.workspace}}/root-rs-c-bindings
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=test_install_dir
+    - name: Build C bindings
+      # Build your program with the given configuration
+      working-directory: ${{github.workspace}}/root-rs-c-bindings
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+    - name: Test C bindings
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}}
+    - name: Rust Build
+      run: cargo build --verbose
+    - name: Rust Test
+      run: cargo test --verbose
