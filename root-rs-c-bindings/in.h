@@ -1,4 +1,0 @@
-
-#define A a
-
-A
