@@ -49,7 +49,8 @@ set(RRS_ROOT_DOC_VERSION ${ROOT_VERSION_MAJOR}${ROOT_VERSION_MINOR})
 
 install(TARGETS root-rs-c-bindings DESTINATION lib)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/root-rs-c-bindings-linked-libs.txt DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include/root-rs-c-bindings)
 
 configure_file(config.in.h ${CMAKE_CURRENT_BINARY_DIR}/root-rs-c-bindings/config.h)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/root-rs-c-bindings/config.h DESTINATION include/root-rs-c-bindings)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/root-rs-c-bindings/config.h DESTINATION include/root-rs-c-bindings/root-rs-c-bindings)
 target_include_directories(root-rs-c-bindings PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
