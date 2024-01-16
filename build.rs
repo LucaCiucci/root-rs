@@ -40,15 +40,18 @@ fn main() {
             continue;
         }
         let lib = PathBuf::from(lib);
-        eprintln!("lib: {:?}", lib);
+        //eprintln!("lib: {:?}", lib);
         let dir = lib.parent().unwrap();
+        #[cfg(target_os = "windows")]
         let lib = lib.file_stem().unwrap();
+        #[cfg(not(target_os = "windows"))]
+        let lib = lib.file_name().unwrap();
         let lib = lib.to_str().unwrap();
-        panic!("lib: {}, dir: {}", lib, dir.display());
+        //panic!("lib: {}, dir: {}", lib, dir.display());
         println!("cargo:rustc-link-search=native={}", dir.display());
         println!("cargo:rustc-link-lib=static={}", lib);
     }
-    println!(r##"cargo:rustc-link-search="C:\Users\lucac\Documents\GitHub\root-rs\target\debug\build\root-rs-fa790768e1898ea6\out\build\_deps\root_prebuilt_release-src\bin""##);
+    
 
     // Copy all shared libraries to OUT_DIR
     //let shared_libs_dir_file = dst.display().to_string() + "/lib/root_bin_dir.txt";
