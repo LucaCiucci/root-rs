@@ -23,7 +23,7 @@ set_target_properties(root-rs-c-bindings PROPERTIES
 )
 
 # TODO ADJUST THIS VALUE!!!!! I use 6.30.02, but I wrote 6.20 to make it work for others.
-find_package(ROOT 6.20 REQUIRED)
+find_package(ROOT 6.22 REQUIRED)
 message(STATUS "ROOT_FOUND: ${ROOT_FOUND}")
 message(STATUS "root version: ${ROOT_VERSION}")
 target_include_directories(root-rs-c-bindings PRIVATE ${ROOT_INCLUDE_DIRS})
