@@ -5,23 +5,18 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-    inputs:
-      choosen-os:
-        required: true
-        description: "Choose the OS to run the workflow on"
-        type: choice
-        options:
-          - ubuntu-latest
-          - windows-latest
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
-    runs-on: "${{ inputs.choosen-os }}"
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
