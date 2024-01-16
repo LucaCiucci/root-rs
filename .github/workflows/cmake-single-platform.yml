@@ -7,6 +7,15 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch: # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+    inputs:
+      choosen-os:
+        required: true
+        description: "Choose the OS to run the workflow on"
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -17,7 +26,7 @@ jobs:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.choosen-os }}
 
     steps:
     - uses: actions/checkout@v3
