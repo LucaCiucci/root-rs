@@ -111,29 +111,40 @@ if(NOT ROOT_RS_SYSTEM_ROOT)
     )
     FetchContent_MakeAvailable(nlohmann_json)
     if(RRS_NEEDS_VDT)
-        FetchContent_Declare(
-            vdt
-            GIT_REPOSITORY https://github.com/dpiparo/vdt
-            GIT_TAG v0.4.4
-            #OVERRIDE_FIND_PACKAGE
-        )
-        #FetchContent_MakeAvailable(vdt)
-        FetchContent_GetProperties(vdt)
-        if(NOT vdt_POPULATED)
-            FetchContent_Populate(vdt)
-        endif()
-        # Now install into ${CMAKE_INSTALL_PREFIX}:
-        # git clone https://github.com/dpiparo/vdt.git
-        # cd vdt
-        # cmake -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .
-        # make
-        # make install
-        set(command "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install")
-        message(STATUS "executing command: ${command}")
-        exec_program( "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install" )
-        # add CMAKE_INSTALL_PREFIX to CMAKE_PREFIX_PATH
         list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
 
+        # check if vdt is already installed
+        find_package(vdt QUIET)
+        if(vdt_FOUND)
+            message(STATUS "vdt found")
+        else()
+            message(STATUS "vdt not found")
+        endif()
+
+        if (NOT vdt_FOUND)
+            message(STATUS "vdt not found, downloading and installing it")
+            FetchContent_Declare(
+                vdt
+                GIT_REPOSITORY https://github.com/dpiparo/vdt
+                GIT_TAG v0.4.4
+                #OVERRIDE_FIND_PACKAGE
+            )
+            #FetchContent_MakeAvailable(vdt)
+            FetchContent_GetProperties(vdt)
+            if(NOT vdt_POPULATED)
+                FetchContent_Populate(vdt)
+            endif()
+            # Now install into ${CMAKE_INSTALL_PREFIX}:
+            # git clone https://github.com/dpiparo/vdt.git
+            # cd vdt
+            # cmake -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .
+            # make
+            # make install
+            set(command "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install")
+            message(STATUS "executing command: ${command}")
+            exec_program( "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install" )
+            # add CMAKE_INSTALL_PREFIX to CMAKE_PREFIX_PATH
+        endif()
     endif()
 
     FetchContent_Declare(
