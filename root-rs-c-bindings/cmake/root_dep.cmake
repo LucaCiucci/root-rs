@@ -97,6 +97,14 @@ if(NOT ROOT_RS_SYSTEM_ROOT)
 
     include(FetchContent)
     FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json
+        GIT_TAG v3.11.3
+        OVERRIDE_FIND_PACKAGE
+    )
+    FetchContent_MakeAvailable(nlohmann_json)
+
+    FetchContent_Declare(
     root_prebuilt_release
     URL     ${ROOT_DOWNLOAD_URL}
     )
@@ -108,10 +116,10 @@ else()
     find_package(ROOT 6.20 REQUIRED)
 endif()
 
-set(tmp "#18~22.04.1-Ubuntu SMP Tue Nov 21 19:25:02 UTC 2023")
-#if(tmp MATCHES "22.04")
-if(  tmp MATCHES "22.04"  )
-    message(FATAL_ERROR "Ubuntu 22.04 detected")
-else()
-    message(FATAL_ERROR "Ubuntu 22.04 not detected")
-endif()
+#set(tmp "#18~22.04.1-Ubuntu SMP Tue Nov 21 19:25:02 UTC 2023")
+##if(tmp MATCHES "22.04")
+#if(  tmp MATCHES "22.04"  )
+#    message(FATAL_ERROR "Ubuntu 22.04 detected")
+#else()
+#    message(FATAL_ERROR "Ubuntu 22.04 not detected")
+#endif()
