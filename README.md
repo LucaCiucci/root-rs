@@ -1,9 +1,9 @@
 # root-rs
  Rust bindings for the C++ ROOT library.
 
-This is a WIP project to provide C and Rust bindings for the C++ ROOT library.
+This WIP project aims to provide C and Rust interfaces for the C++ ROOT library.
 
-C bindings are manually maintained in the [`root-rs-c-bindings`](./root-rs-c-bindings/) directory, supporting 100% of the ROOT C API is a **non-goal** of this project. You can [open an issue](https://github.com/LucaCiucci/root-rs/issues) or a [pull request](https://github.com/LucaCiucci/root-rs/pulls) to request a new feature or help with the development.
+The C interfaces are manually curated and can be found in the [`root-rs-c-bindings`](./root-rs-c-bindings/) directory. Please note that covering the entire ROOT C API is not the primary objective of this project. If you wish to request a new feature or contribute to the development, feel free to [open an issue](https://github.com/LucaCiucci/root-rs/issues) or submit a [pull request](https://github.com/LucaCiucci/root-rs/pulls).
 
 ## Usage
 
