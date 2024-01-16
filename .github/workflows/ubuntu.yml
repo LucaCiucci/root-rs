@@ -27,7 +27,7 @@ jobs:
         cd json-3.11.3
         mkdir build
         cd build
-        cmake -DBUILD_TESTING=OFF ..
+        cmake -DJSON_BuildTests=OFF ..
         make
         sudo make install
     - name: download-root
