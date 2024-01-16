@@ -40,9 +40,11 @@ fn main() {
             continue;
         }
         let lib = PathBuf::from(lib);
+        eprintln!("lib: {:?}", lib);
         let dir = lib.parent().unwrap();
         let lib = lib.file_stem().unwrap();
         let lib = lib.to_str().unwrap();
+        panic!("lib: {}, dir: {}", lib, dir.display());
         println!("cargo:rustc-link-search=native={}", dir.display());
         println!("cargo:rustc-link-lib=static={}", lib);
     }
