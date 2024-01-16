@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch:
+  workflow_dispatch: # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
     inputs:
       choosen-os:
         required: true
@@ -21,7 +21,7 @@ env:
 jobs:
   build:
 
-    runs-on: ${{ inputs.choosen-os }}
+    runs-on: "${{ inputs.choosen-os }}"
 
     steps:
     - uses: actions/checkout@v3
