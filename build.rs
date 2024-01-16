@@ -1,3 +1,4 @@
+use core::panic;
 use std::path::PathBuf;
 
 
@@ -23,8 +24,8 @@ fn main() {
 
     let dst = cfg.build();
 
-    println!("cargo:rustc-link-search=native={}", dst.display());
-    println!("cargo:rustc-link-lib=static=lib/root-rs-c-bindings");
+    println!("cargo:rustc-link-search=native={}/lib", dst.display());
+    println!("cargo:rustc-link-lib=static=root-rs-c-bindings");
 
     let libs_file = dst.display().to_string() + "/lib/libs.txt";
     //panic!("libs_file: {}", libs_file);
@@ -45,6 +46,53 @@ fn main() {
         println!("cargo:rustc-link-search=native={}", dir.display());
         println!("cargo:rustc-link-lib=static={}", lib);
     }
+
+    // Copy all shared libraries to OUT_DIR
+    //let shared_libs_dir_file = dst.display().to_string() + "/lib/root_bin_dir.txt";
+    //let shared_libs_dir = std::fs::read_to_string(shared_libs_dir_file).unwrap();
+    //let shared_libs_dir = shared_libs_dir.trim();
+    //if !shared_libs_dir.is_empty() {
+    //    // find all shared libraries in shared_libs_dir
+    //    let shared_libs_dir = PathBuf::from(shared_libs_dir);
+    //    let shared_libs = std::fs::read_dir(&shared_libs_dir).unwrap();
+//
+    //    let extensions = [
+    //        "so",
+    //        "dll",
+    //        "dylib",
+    //    ];
+//
+    //    for shared_lib in shared_libs {
+    //        //panic!("shared_lib: {:?}", shared_lib);
+    //        let shared_lib = shared_lib.unwrap();
+    //        let shared_lib = shared_lib.path();
+    //        let shared_lib = shared_lib.file_name().unwrap();
+    //        let shared_lib = shared_lib.to_str().unwrap();
+//
+    //        let mut found = false;
+    //        for extension in &extensions {
+    //            if shared_lib.ends_with(extension) {
+    //                found = true;
+    //                break;
+    //            }
+    //        }
+    //        if !found {
+    //            continue;
+    //        }
+//
+    //        let shared_lib = shared_libs_dir.join(shared_lib);
+    //        let shared_lib = shared_lib.display().to_string();
+    //        //println!("cargo:rustc-link-search=native={}", shared_libs_dir.display());
+    //        //println!("cargo:rustc-link-lib=dylib={}", shared_lib);
+//
+    //        // copy shared_lib to executable dir, which is <target_dir>\<profile>
+    //        let target_dir = std::env::var("CARGO_TARGET_DIR").unwrap();
+    //        let profile = std::env::var("PROFILE").unwrap();
+    //        let target_dir = PathBuf::from(target_dir).join(profile);
+    //        let target_dir = target_dir.display().to_string();
+    //        let target_dir = target_dir + "/deps";
+    //    }
+    //}
 
     let path = "root-rs-c-bindings/include/root-rs-c-bindings.h";
     let include_dir = dst.display().to_string() + "/include";

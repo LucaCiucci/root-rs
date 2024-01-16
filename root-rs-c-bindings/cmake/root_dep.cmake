@@ -155,10 +155,15 @@ if(NOT ROOT_RS_SYSTEM_ROOT)
     FetchContent_MakeAvailable(root_prebuilt_release) # this will download and extract the zip file TODO maybe instead use FetchContent_Populate?
     #list(APPEND CMAKE_PREFIX_PATH ${root_prebuilt_release_SOURCE_DIR}/cmake)
 
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/root_bin_dir.txt ${root_prebuilt_release_SOURCE_DIR}/bin)
+
     find_package(ROOT 6.20 REQUIRED PATHS ${root_prebuilt_release_SOURCE_DIR}/cmake NO_DEFAULT_PATH)
 else()
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/root_bin_dir.txt "")
     find_package(ROOT 6.20 REQUIRED)
 endif()
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/root_bin_dir.txt DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 #set(tmp "#18~22.04.1-Ubuntu SMP Tue Nov 21 19:25:02 UTC 2023")
 ##if(tmp MATCHES "22.04")
