@@ -17,6 +17,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: download-root
       run: |
+        cwd
+        source ~/root/bin/thisroot.sh
         wget https://root.cern/download/root_v6.30.02.Linux-ubuntu23.04-x86_64-gcc12.3.tar.gz
         tar -xzf root_v6.30.02.Linux-ubuntu23.04-x86_64-gcc12.3.tar.gz
         source ~/root/bin/thisroot.sh
