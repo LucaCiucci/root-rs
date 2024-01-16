@@ -30,6 +30,17 @@ jobs:
         cmake -DJSON_BuildTests=OFF ..
         make
         sudo make install
+    - name: install VDT
+      run: |
+        cd ~
+        wget https://github.com/dpiparo/vdt/archive/refs/tags/v0.4.4.tar.gz
+        tar -xzf v0.4.4.tar.gz
+        cd vdt-0.4.4
+        mkdir build
+        cd build
+        cmake ..
+        make
+        sudo make install
     - name: download-root
       run: |
         cd ~
