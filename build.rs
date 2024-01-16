@@ -24,9 +24,6 @@ fn main() {
 
     let dst = cfg.build();
 
-    println!("cargo:rustc-link-search=native={}/lib", dst.display());
-    println!("cargo:rustc-link-lib=static=root-rs-c-bindings");
-
     let libs_file = dst.display().to_string() + "/lib/root-rs-c-bindings-linked-libs.txt";
     //panic!("libs_file: {}", libs_file);
 
@@ -48,6 +45,9 @@ fn main() {
         println!("cargo:rustc-link-search=native={}", dir.display());
         println!("cargo:rustc-link-lib={}", lib);
     }
+
+    println!("cargo:rustc-link-search=native={}/lib", dst.display());
+    println!("cargo:rustc-link-lib=static=root-rs-c-bindings");
     
 
     // Copy all shared libraries to OUT_DIR
