@@ -15,6 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        sudo apt install nlohmann-json3-dev
     - name: download-root
       run: |
         cd ~
