@@ -41,8 +41,6 @@ fn main() {
         }
         let lib = PathBuf::from(lib);
         let dir = lib.parent().unwrap();
-        #[cfg(target_os = "windows")]
-        //let lib = lib.file_stem().unwrap();
         let lib = lib.file_stem().unwrap().to_str().unwrap();
         // remove the lib prefix if present
         #[cfg(unix)]
