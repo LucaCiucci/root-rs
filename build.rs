@@ -27,7 +27,7 @@ fn main() {
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
     println!("cargo:rustc-link-lib=static=root-rs-c-bindings");
 
-    let libs_file = dst.display().to_string() + "/lib/libs.txt";
+    let libs_file = dst.display().to_string() + "/lib/root-rs-c-bindings-linked-libs.txt";
     //panic!("libs_file: {}", libs_file);
 
     println!("cargo:rerun-if-changed={}", libs_file);
