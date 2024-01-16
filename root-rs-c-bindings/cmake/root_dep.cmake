@@ -128,6 +128,8 @@ if(NOT ROOT_RS_SYSTEM_ROOT)
         # cmake -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .
         # make
         # make install
+        set(command "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install")
+        message(STATUS "executing command: ${command}")
         exec_program( "cd ${vdt_SOURCE_DIR}; ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} .; make; make install" )
         # add CMAKE_INSTALL_PREFIX to CMAKE_PREFIX_PATH
         list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
