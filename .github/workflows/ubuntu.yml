@@ -19,27 +19,27 @@ jobs:
       run: |
         wget https://root.cern/download/root_v6.30.02.Linux-ubuntu23.04-x86_64-gcc12.3.tar.gz
         tar -xzf root_v6.30.02.Linux-ubuntu23.04-x86_64-gcc12.3.tar.gz
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
     - name: Configure CMake for C bindings
       working-directory: ${{github.workspace}}/root-rs-c-bindings
       run: |
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=test_install_dir
     - name: Build C bindings
       working-directory: ${{github.workspace}}/root-rs-c-bindings
       run: |
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
     - name: Test C bindings
       working-directory: ${{github.workspace}}/build
       run: |
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
         ctest -C ${{env.BUILD_TYPE}}
     - name: Rust Build
       run: |
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
         cargo build --verbose
     - name: Rust Test
       run: |
-        source root/bin/thisroot.sh
+        source ~/root/bin/thisroot.sh
         cargo test --verbose
