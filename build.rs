@@ -40,16 +40,15 @@ fn main() {
             continue;
         }
         let lib = PathBuf::from(lib);
-        //eprintln!("lib: {:?}", lib);
         let dir = lib.parent().unwrap();
         #[cfg(target_os = "windows")]
-        let lib = lib.file_stem().unwrap();
-        #[cfg(not(target_os = "windows"))]
-        let lib = lib.file_name().unwrap();
-        let lib = lib.to_str().unwrap();
-        //panic!("lib: {}, dir: {}", lib, dir.display());
+        //let lib = lib.file_stem().unwrap();
+        let lib = lib.file_stem().unwrap().to_str().unwrap();
+        // remove the lib prefix if present
+        #[cfg(unix)]
+        let lib = lib.strip_prefix("lib").unwrap_or(lib);
         println!("cargo:rustc-link-search=native={}", dir.display());
-        println!("cargo:rustc-link-lib=static={}", lib);
+        println!("cargo:rustc-link-lib={}", lib);
     }
     
 
