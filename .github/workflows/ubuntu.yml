@@ -23,7 +23,7 @@ jobs:
     - name: install nlohmann json from git release
       run: |
         cd ~
-        wget https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.tar.gz
+        wget -q https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.tar.gz
         tar -xzf v3.11.3.tar.gz
         cd json-3.11.3
         mkdir build
